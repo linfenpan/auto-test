@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>浏览器自动化测试</title>
+</head>
+<body>
+
+  <input type="text" id="username" />
+  <button id="submit">提交</button>
+
+  <div id="message" style="display: none;">用户: da宗熊</div>
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+<script src="./auto-test.js"></script>
+<script>
+  'use strict';
+  $('#submit').click(function() {
+    setTimeout(() => $('#message').show(), 500);
+  });
+</script>
+
+<script>
+  'use strict';
+
+  const autoTest = new AutoTest();
+  const { auto, assert, wait, run } = autoTest;
+
+  auto('登陆', function* login() {
+    const $username = $('#username');
+    $username.val('da宗熊');
+
+    const $submit = $('#submit');
+    $submit.click();
+
+    const $message = $('#message');
+    yield wait(() => $message.is(':visible'), 1000);
+    assert($message.is(':visible'), '登陆信息应该显示才对!!');
+
+    console.log('登录成功');
+  });
+
+  run();
+</script>
+</body>
+</html>
