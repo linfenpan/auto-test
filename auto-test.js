@@ -137,10 +137,11 @@
       }
 
       if (Array.isArray(testCases) === false) {
-        testCases = Object.keys(map).map(function(key) {
-          return { key: key, fn: map[key] };
-        });
+        testCases = Object.keys(map);
       }
+      testCases = testCases.map(function(key) {
+        return { key: key, fn: map[key] };
+      });
 
       var doneCounter = 0,
           failCounter = 0,
